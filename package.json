@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "format": "prettier --write .",
-    "start": "next lint && npm run format && next build && next start",
+    "start": "next start",
+    "prod": "next lint && npm run format && next build && next start",
     "lint": "next lint"
   },
   "dependencies": {

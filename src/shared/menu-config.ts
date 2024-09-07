@@ -8,7 +8,7 @@ export const menuItems = [
     iconOn: '/menu-icons/stats_on.svg',
     path: '/summary',
     subItems: [
-      { label: 'Сводка', path: '/summary/' },
+      { label: 'Сводка', path: '/summary/pivot' },
       { label: 'Цели', path: '/summary/goals' },
     ],
   },

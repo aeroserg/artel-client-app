@@ -90,7 +90,7 @@ const theme = extendTheme({
         cardPriceMain: {
           fontSize: '50px',
           fontWeight: 600,
-          lineHeight: '45px',
+          lineHeight: '42px',
         },
         subCardItemGrowth: {
           fontSize: '13px',
@@ -100,6 +100,12 @@ const theme = extendTheme({
           fontSize: '22px',
           fontWeight: 500,
           color: 'regularText.subtitle',
+        },
+        menuHeader: {
+          fontSize: '22px',
+          fontWeight: 500,
+          lineHeight: '22px',
+          color: 'regularText.title',
         },
 
         regularText: {

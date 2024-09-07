@@ -21,7 +21,7 @@ const GoalAchivements: FC<goalProps> = ({ text }) => {
         position={'absolute'}
         left={2.5}
         top={1.5}
-        src="shared/achivements.svg"
+        src="/shared/achivements.svg"
         alt="награды"
       />
       {typeof text === 'number' && <Text variant={'cardGoalsBadge'}>{priceFormatter(text)}</Text>}
