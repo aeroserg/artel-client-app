@@ -57,10 +57,10 @@ const LineChart: React.FC<LineChartProps> = ({
           display: showXAxes,
         },
         ticks: {
-            font:{
-                size: 7.7
-            }
+          font: {
+            size: 7.7,
           },
+        },
       },
       y: {
         display: showYAxes, // Hide or show Y axis
@@ -72,9 +72,9 @@ const LineChart: React.FC<LineChartProps> = ({
           callback: function (value: number | string) {
             return value + ' ' + axisLabelSuffix // Add suffix to Y-axis labels
           },
-          font:{
-            size: 10
-            }
+          font: {
+            size: 10,
+          },
         },
       },
     },
@@ -82,7 +82,6 @@ const LineChart: React.FC<LineChartProps> = ({
       legend: {
         display: false, // Hide the legend
       },
-     
     },
     responsive: false, // Make chart responsive
     maintainAspectRatio: true, // Allows better responsiveness

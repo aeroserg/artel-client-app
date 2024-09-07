@@ -163,27 +163,25 @@ export default function Summary() {
               </Flex>
             </Flex>
             <Divider bgColor={'#E8EBEF'} height={'1px'} my={4} />
-            <Flex justifyContent={"space-between"} alignItems={"flex-start"}>
+            <Flex justifyContent={'space-between'} alignItems={'flex-start'}>
               <Flex gap={4} flexDirection="column" justifyContent={'space-between'}>
                 <Text variant={'regularText'} color={'regularText.title'}>
                   Ожидаемые награды
                 </Text>
-                <GoalAchivements text={50000}/>
-
-               
+                <GoalAchivements text={50000} />
               </Flex>
               {cardObjGoals?.link && (
-                  <Flex alignItems={'center'}>
-                    <Link
-                      href={cardObjGoals.link}
-                      variant={'cardGoalsEA'}
-                      color={'regularText.subtitle'}
-                    >
-                      {'Подробнее'}
-                      <ChevronRightIcon boxSize={6} />
-                    </Link>
-                  </Flex>
-                )}
+                <Flex alignItems={'center'}>
+                  <Link
+                    href={cardObjGoals.link}
+                    variant={'cardGoalsEA'}
+                    color={'regularText.subtitle'}
+                  >
+                    {'Подробнее'}
+                    <ChevronRightIcon boxSize={6} />
+                  </Link>
+                </Flex>
+              )}
             </Flex>
           </Flex>
         </Card>

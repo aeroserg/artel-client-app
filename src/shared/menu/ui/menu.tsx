@@ -7,7 +7,7 @@ import { menuItems, bottomMenuItems } from '../../menu-config'
 
 interface MenuProps {
   onHoverChange: (hovered: boolean) => void
-  children?: React.ReactNode 
+  children?: React.ReactNode
 }
 
 export default function Menu({ onHoverChange, children }: MenuProps) {
@@ -55,6 +55,7 @@ export default function Menu({ onHoverChange, children }: MenuProps) {
   return (
     <Flex>
       <Box
+        borderRightRadius={'15px'}
         as="nav"
         height="100vh"
         width={isHovered ? '250px' : '60px'}
@@ -75,7 +76,7 @@ export default function Menu({ onHoverChange, children }: MenuProps) {
             <Flex mb={4} alignItems="center" cursor="pointer">
               <Image src="/logo-menu.svg" alt="Главная" width={30} height={30} />
               {/* Display activeLink (either parent or subitem) */}
-              <Text ml={3} variant={"menuHeader"}>
+              <Text ml={3} variant={'menuHeader'}>
                 {activeLink}
               </Text>
             </Flex>
@@ -103,21 +104,21 @@ export default function Menu({ onHoverChange, children }: MenuProps) {
               {isHovered && (
                 <Flex flexDirection="column" ml={2}>
                   {menuItems.map((item) =>
-                    item.subItems.length > 0 && pathname.startsWith(item.path) ? (
-                      item.subItems.map((subItem, index) => (
-                        <Link key={index} href={subItem.path}>
-                          <Text
-                            fontSize="sm"
-                            mb={2}
-                            cursor="pointer"
-                            fontWeight="normal"
-                            onClick={() => setActiveLink(subItem.label)}
-                          >
-                            {subItem.label}
-                          </Text>
-                        </Link>
-                      ))
-                    ) : null
+                    item.subItems.length > 0 && pathname.startsWith(item.path)
+                      ? item.subItems.map((subItem, index) => (
+                          <Link key={index} href={subItem.path}>
+                            <Text
+                              fontSize="sm"
+                              mb={2}
+                              cursor="pointer"
+                              fontWeight="normal"
+                              onClick={() => setActiveLink(subItem.label)}
+                            >
+                              {subItem.label}
+                            </Text>
+                          </Link>
+                        ))
+                      : null
                   )}
                 </Flex>
               )}

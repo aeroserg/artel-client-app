@@ -119,9 +119,11 @@ const CardTitle: FC<CardTitleProps> = ({ cardProps }) => {
                   borderRadius="md"
                   boxShadow="md"
                   zIndex="100"
-                  width={"150px"}
+                  width={'150px'}
                 >
-                  <Text color="#ffffff" fontSize="sm">{cardProps?.questionAnswer}</Text>
+                  <Text color="#ffffff" fontSize="sm">
+                    {cardProps?.questionAnswer}
+                  </Text>
                 </Box>
               )}
             </Box>

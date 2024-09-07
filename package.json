@@ -3,11 +3,12 @@
   "version": "1.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev -p 3005",
+    "build:dev": "next build",
     "format": "prettier --write .",
-    "start": "next start",
-    "prod": "next lint && npm run format && next build && next start",
+    "start": "next start -p 3005",
+    "build:prod": "next lint && npm run format && next build",
+    "prod": "next lint && npm run format && next build && next start -p 3005",
     "lint": "next lint"
   },
   "dependencies": {

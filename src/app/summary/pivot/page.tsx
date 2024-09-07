@@ -164,8 +164,8 @@ const Pivot: FC = () => {
         <Card cardProps={cardsData.taxiIncome}>
           <Flex justifyContent="space-between" flexDirection="column" gap={6}>
             <Flex flexDirection="column" justifyContent="space-between" gap={2}>
-              <Flex gap={6}  alignItems={"flex-end"}>
-                <Text fontWeight={400} fontSize={'34px'} lineHeight={"34px"}>
+              <Flex gap={6} alignItems={'flex-end'}>
+                <Text fontWeight={400} fontSize={'34px'} lineHeight={'34px'}>
                   {cardPiecesData[0].sum}
                 </Text>
                 <Text
@@ -217,8 +217,8 @@ const Pivot: FC = () => {
         {/* Сумма по поездкам */}
         <Card cardProps={cardsData.tripSum}>
           <Flex justifyContent="space-between" flexDirection="column" gap={6}>
-            <Flex gap={6} alignItems={"flex-end"}>
-              <Text fontWeight={400} fontSize={'34px'} lineHeight={"34px"}>
+            <Flex gap={6} alignItems={'flex-end'}>
+              <Text fontWeight={400} fontSize={'34px'} lineHeight={'34px'}>
                 {cardPiecesData[1].sum}
               </Text>
               <Text
@@ -265,7 +265,6 @@ const Pivot: FC = () => {
             </Flex>
           </Flex>
         </Card>
-
       </Flex>
     </>
   )

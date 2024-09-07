@@ -21,11 +21,11 @@ const CardPiece: FC<pieceProps & ChakraStyledOptions> = (pieceProps) => {
       w={'fit-content'}
       flexDir={'column'}
       gap={2}
-      flexWrap={"nowrap"}
-      width={"100%"}
+      flexWrap={'nowrap'}
+      width={'100%'}
     >
       {pieceProps?.children && pieceProps?.children}
-      <Text letterSpacing={"-0.5px"}>{pieceProps?.name}</Text>
+      <Text letterSpacing={'-0.5px'}>{pieceProps?.name}</Text>
       <Flex gap={6}>
         <Text>
           {typeof pieceProps?.sum === 'string' && pieceProps?.sum}
