@@ -8,49 +8,14 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 import getDayWord from '@/util/get-day-word'
 import priceFormatter from '@/util/format-price'
 import GoalAchivements from '@/shared/goal-badge-ea'
-
-const cardObjStaff = {
-  cardTitle: 'Исполнители',
-  cardIconPath: '/card/staff.svg',
-  isLink: true,
-  link: 'staff',
-  chevronNeeded: true,
-}
-
-const cardObjCars = {
-  cardTitle: 'Автомобили',
-  cardIconPath: '/card/cars.svg',
-  isLink: true,
-  link: 'vehicles',
-  chevronNeeded: true,
-}
-
-const now = new Date()
-const daysLeft = new Date(now.getFullYear(), 1, 0).getDate() - now.getDate() - 1
-const cardObjGoals = {
-  cardTitle: `Цели на ${now.toLocaleString('ru-ru', { month: 'long' })}`,
-  cardIconPath: '/card/goals.svg',
-  isLink: true,
-  bottomText: `заканчивается через ${daysLeft} ${getDayWord(daysLeft)}`,
-  chevronNeeded: false,
-  link: '/summary/goals/',
-}
-
-const chart1 = {
-  data: [209, 385, 402],
-  colors: ['#68B934', '#EFB110', '#D86962'],
-}
-const chart2 = {
-  data: [20, 0, 0, 0, 0],
-  colors: ['#68B934', '#EFB110', '#999999', '#D86962', '#2977B5'],
-}
+import { cardData, chartData } from '@/util/card.store'
 
 export default function Summary() {
   return (
     <>
       <Flex flexDirection={{ base: 'column', lg: 'row' }} gap={6} flexWrap="wrap">
         {/* Исполнители */}
-        <Card cardProps={cardObjStaff}>
+        <Card cardProps={cardData.staffCard}>
           <Flex
             justifyContent="space-between"
             flexDirection={{ base: 'column', sm: 'row' }}
@@ -70,9 +35,9 @@ export default function Summary() {
             <Flex>
               <Box width={250} height={125}>
                 <BarChart
-                  data={chart1.data}
+                  data={chartData.chart1.data}
                   labels={['Свободны', 'На линии', 'Заняты']}
-                  colors={chart1.colors}
+                  colors={chartData.chart1.colors}
                   showXAxes={false}
                   width={250}
                   height={125}
@@ -113,7 +78,7 @@ export default function Summary() {
         </Card>
 
         {/* Авто */}
-        <Card cardProps={cardObjCars}>
+        <Card cardProps={cardData.carsCard}>
           <Flex justifyContent="space-between" flexDirection="column" gap={6}>
             <Flex flexDirection="column" justifyContent="space-between" gap={2}>
               <Flex gap={2} alignItems="flex-end">
@@ -131,9 +96,9 @@ export default function Summary() {
               </Flex>
               <Box width="100%" height={200}>
                 <BarChart
-                  data={chart2.data}
+                  data={chartData.chart2.data}
                   labels={['работает', ' нет водителя', 'другое', 'сервис', 'подготовка']}
-                  colors={chart2.colors}
+                  colors={chartData.chart2.colors}
                   showXAxes={false}
                   width={475}
                   height={200}
@@ -144,7 +109,7 @@ export default function Summary() {
         </Card>
 
         {/* Цели */}
-        <Card cardProps={cardObjGoals}>
+        <Card cardProps={cardData.goalsCard}>
           <Flex justifyContent="space-between" flexDirection="column" gap={6}>
             <Text variant="subTitleCard">Привлеките 100 женщин-водителей</Text>
             <Flex flexDirection="column" gap={1}>
@@ -170,10 +135,10 @@ export default function Summary() {
                 </Text>
                 <GoalAchivements text={50000} />
               </Flex>
-              {cardObjGoals?.link && (
+              {cardData.goalsCard?.link && (
                 <Flex alignItems={'center'}>
                   <Link
-                    href={cardObjGoals.link}
+                    href={cardData.goalsCard.link}
                     variant={'cardGoalsEA'}
                     color={'regularText.subtitle'}
                   >

@@ -3,17 +3,13 @@ import { Box, Flex, Text } from '@chakra-ui/react'
 import { useState, useEffect, FC } from 'react'
 import Card from '@/shared/card/ui/card'
 import LineChart from '@/shared/chart/chart/ui/line-chart'
-import getDayWord from '@/util/get-day-word'
 import priceFormatter from '@/util/format-price'
 import CardPiece from '@/shared/card/piece/ui/card-piece'
-
-const now = new Date()
-const daysLeft = new Date(now.getFullYear(), 1, 0).getDate() - now.getDate() - 1
+import { cardData, cardPieceData } from '@/util/card.store'
 
 const getDaysInMonth = () => {
   const now = new Date()
-  const days = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate()
-  return days
+  return new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate()
 }
 
 const Pivot: FC = () => {
@@ -42,8 +38,8 @@ const Pivot: FC = () => {
     }
 
     const calculateSums = () => {
-      const sums = [10000, 250000, 150000] // Example sums to apply the formatter to
-      return sums.map((sum) => priceFormatter(sum, 3)) // Format with rules like zeros removal
+      const sums = [10000, 250000, 150000]
+      return sums.map((sum) => priceFormatter(sum, 3)) // Format sums with the custom formatter
     }
 
     // Set generated labels and data to state
@@ -54,96 +50,11 @@ const Pivot: FC = () => {
     setCardPieceSums(calculateSums())
   }, [])
 
-  // Data for all cards
-  const cardsData = {
-    chiefs: {
-      cardTitle: 'Водители',
-      cardIconPath: '/card/staff.svg',
-      isLink: true,
-      link: 'staff',
-      chevronNeeded: true,
-    },
-    taxiIncome: {
-      cardTitle: 'Доход таксопарка',
-      cardIconPath: '/shared/incomes-icon.svg',
-      isLink: true,
-      link: 'vehicles',
-      chevronNeeded: true,
-      isQuestionable: true,
-      questionAnswer: 'This is a helpful answer.',
-      rightLink: '/summary',
-      rightLinkName: 'на карте',
-    },
-    tripSum: {
-      cardTitle: 'Сумма по поездкам',
-      cardIconPath: '/shared/summ-chart-icon.svg',
-      isLink: true,
-      link: '/trips',
-      chevronNeeded: true,
-      isQuestionable: true,
-      questionAnswer: 'Details about the trip sum.',
-      rightLink: '/summary',
-      rightLinkName: 'отчет',
-    },
-    goals: {
-      cardTitle: `Цели на ${now.toLocaleString('ru-ru', { month: 'long' })}`,
-      cardIconPath: '/card/goals.svg',
-      isLink: true,
-      bottomText: `заканчивается через ${daysLeft} ${getDayWord(daysLeft)}`,
-      chevronNeeded: false,
-      link: '/summary/goals/',
-    },
-  }
-
-  // Data for CardPiece components
-  const cardPiecesData = [
-    {
-      name: 'Автомобили',
-      sum: cardPieceSums[0],
-      percents: 2.5,
-      fall: false,
-    },
-    {
-      name: 'Выручка',
-      sum: cardPieceSums[1],
-      percents: 1.8,
-      fall: true,
-    },
-    {
-      name: 'Расходы',
-      sum: cardPieceSums[2],
-      percents: 0.5,
-      fall: null,
-    },
-  ]
-
-  // Data for the duplicated card (Сумма по поездкам)
-  const tripCardPiecesData = [
-    {
-      name: 'Наличные',
-      sum: cardPieceSums[0],
-      percents: 2.2,
-      fall: false,
-    },
-    {
-      name: 'Оплата по карте',
-      sum: cardPieceSums[1],
-      percents: 1.5,
-      fall: true,
-    },
-    {
-      name: 'Корпоративная оплата',
-      sum: cardPieceSums[2],
-      percents: 0.8,
-      fall: null,
-    },
-  ]
-
   return (
     <>
       <Flex flexDirection={{ base: 'column', lg: 'row' }} gap={6} flexWrap="wrap">
         {/* Водители */}
-        <Card cardProps={cardsData.chiefs}>
+        <Card cardProps={cardData.chiefs}>
           <Flex flexDirection={{ base: 'column', sm: 'row' }} gap={6}>
             <Flex flexDirection="column" justifyContent="space-between" gap={8}>
               <Text variant="cardPriceMain">74</Text>
@@ -161,39 +72,39 @@ const Pivot: FC = () => {
         </Card>
 
         {/* Авто */}
-        <Card cardProps={cardsData.taxiIncome}>
+        <Card cardProps={cardData.taxiIncome}>
           <Flex justifyContent="space-between" flexDirection="column" gap={6}>
             <Flex flexDirection="column" justifyContent="space-between" gap={2}>
               <Flex gap={6} alignItems={'flex-end'}>
                 <Text fontWeight={400} fontSize={'34px'} lineHeight={'34px'}>
-                  {cardPiecesData[0].sum}
+                  {cardPieceSums[0]}
                 </Text>
                 <Text
                   fontWeight={400}
                   fontSize={'16px'}
                   color={
-                    cardPiecesData[0].fall === false
+                    cardPieceData.main[0].fall === false
                       ? '#D86962'
-                      : cardPiecesData[0].fall
+                      : cardPieceData.main[0].fall
                         ? '#68B934'
                         : '#1B364A'
                   }
                 >
-                  {typeof cardPiecesData[0].fall === 'boolean'
-                    ? cardPiecesData[0].fall
-                      ? `+${cardPiecesData[0].percents} %`
-                      : `-${cardPiecesData[0].percents} %`
-                    : `${cardPiecesData[0].percents} %`}
+                  {typeof cardPieceData.main[0].fall === 'boolean'
+                    ? cardPieceData.main[0].fall
+                      ? `+${cardPieceData.main[0].percents} %`
+                      : `-${cardPieceData.main[0].percents} %`
+                    : `${cardPieceData.main[0].percents} %`}
                 </Text>
               </Flex>
             </Flex>
 
             <Flex gap={4}>
-              {cardPiecesData.map((piece, index) => (
+              {cardPieceData.main.map((piece, index) => (
                 <CardPiece
                   key={index}
                   name={piece.name}
-                  sum={piece.sum}
+                  sum={cardPieceSums[index]}
                   percents={piece.percents}
                   fall={piece.fall}
                 />
@@ -215,37 +126,37 @@ const Pivot: FC = () => {
         </Card>
 
         {/* Сумма по поездкам */}
-        <Card cardProps={cardsData.tripSum}>
+        <Card cardProps={cardData.tripSum}>
           <Flex justifyContent="space-between" flexDirection="column" gap={6}>
             <Flex gap={6} alignItems={'flex-end'}>
               <Text fontWeight={400} fontSize={'34px'} lineHeight={'34px'}>
-                {cardPiecesData[1].sum}
+                {cardPieceSums[1]}
               </Text>
               <Text
                 fontWeight={400}
                 fontSize={'16px'}
                 color={
-                  cardPiecesData[1].fall === false
+                  cardPieceData.trip[1].fall === false
                     ? '#D86962'
-                    : cardPiecesData[1].fall
+                    : cardPieceData.trip[1].fall
                       ? '#68B934'
                       : '#1B364A'
                 }
               >
-                {typeof cardPiecesData[1].fall === 'boolean'
-                  ? cardPiecesData[1].fall
-                    ? `+${cardPiecesData[1].percents} %`
-                    : `-${cardPiecesData[1].percents} %`
-                  : `${cardPiecesData[1].percents} %`}
+                {typeof cardPieceData.trip[1].fall === 'boolean'
+                  ? cardPieceData.trip[1].fall
+                    ? `+${cardPieceData.trip[1].percents} %`
+                    : `-${cardPieceData.trip[1].percents} %`
+                  : `${cardPieceData.trip[1].percents} %`}
               </Text>
             </Flex>
 
             <Flex gap={4}>
-              {tripCardPiecesData.map((piece, index) => (
+              {cardPieceData.trip.map((piece, index) => (
                 <CardPiece
                   key={index}
                   name={piece.name}
-                  sum={piece.sum}
+                  sum={cardPieceSums[index]}
                   percents={piece.percents}
                   fall={piece.fall}
                 />
